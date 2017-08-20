@@ -29,9 +29,9 @@ var VectorAsSumOfTwoVectors = (v1, v2) => {
 }
 
 var VectorAsProductOfVectorAndScalar = (vector, scalar) => {
-	let v = clone.NumObject(vector);
-	for (let i = 0; i < v.size; i++) {
-		v[i] = v[i] * scalar;
+	let v = {};
+	for (let i = 0; i < vector.size; i++) {
+		v[i] = vector[i] * scalar;
 	}
 	return v;
 }
