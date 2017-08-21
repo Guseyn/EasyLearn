@@ -20,7 +20,7 @@ var Matrix = (...args) => {
 }
 
 var TransposedMatrix = (matrix) => {
-	var m = {};
+	let m = {};
 	for (let j = 0; j < matrix.columnSize; j++) {
 		m[j] = {};
 		for (let i = 0; i < matrix.size; i++) {
@@ -32,8 +32,54 @@ var TransposedMatrix = (matrix) => {
 	return m;
 }
 
-var m = Matrix([1,2,3], [4,5,6], [7,8,9], [10,11,12,13], [14,15]);
-var tm = TransposedMatrix(m);
+var MatrixAsSumOfTwoMatrix = (m1, m2) => {
+	let m = {};
+	let size = Math.max(m1.size, m2.size);
+	let columnSize = Math.max(m1.columnSize, m2.columnSize);
+	for (let j = 0; j < size; j++) {
+		m[j] = {};
+		for (let i = 0; i < columnSize; i++) {
+			m[j][i] = (m1[j] ? (m1[j][i] || 0) : 0) 
+						+ (m2[j] ? (m2[j][i] || 0) : 0);
+		}
+	}
+	m.size = size;
+	m.columnSize = columnSize;
+	return m;
+}
 
-console.log(m);
-console.log(tm);
+var MatrixAsProductOfMatrixAndScalar = (matrix, scalar) => {
+	let m = {};
+	for (let j = 0; j < matrix.size; j++) {
+		m[j] = {};
+		for (let i = 0; i < matrix.columnSize; i++) {
+			m[j][i] = matrix[j][i] * scalar;
+		}
+	}
+	m.size = matrix.size;
+	m.columnSize = matrix.columnSize;
+	return m;
+}
+
+var MatrixAsHadamardProduct = (m1, m2) => {
+	let m = {};
+	let size = Math.max(m1.size, m2.size);
+	let columnSize = Math.max(m1.columnSize, m2.columnSize);
+	for (let j = 0; j < size; j++) {
+		m[j] = {};
+		for (let i = 0; i < columnSize; i++) {
+			m[j][i] = (m1[j] ? (m1[j][i] || 0) : 0) 
+						* (m2[j] ? (m2[j][i] || 0) : 0);
+		}
+	}
+	m.size = size;
+	m.columnSize = columnSize;
+	return m;
+}
+
+module.exports.Matrix = Matrix;
+module.exports.TransposedMatrix = TransposedMatrix;
+module.exports.MatrixAsSumOfTwoMatrix = MatrixAsSumOfTwoMatrix;
+module.exports.MatrixAsProductOfMatrixAndScalar = MatrixAsProductOfMatrixAndScalar;
+
+

@@ -2,6 +2,9 @@
 
 const clone = require('./../lib/clone');
 
+const matrixModule = require('./matrix');
+const Matrix = matrixModule.Matrix;
+
 var Vector = (...args) => {
 	let v = {};
 	for (let i in args) {
@@ -45,21 +48,28 @@ var ScalarProduct = (v1, v2) => {
 	return res;
 }
 
-let v = Vector(1, 2, 3);
-let nv = VectorWithNewElm(v, 4);
-let sv = VectorAsSumOfTwoVectors(v, nv);
-let spvv = VectorAsProductOfVectorAndScalar(sv, 2);
-let sp = ScalarProduct(nv, sv);
-
-console.log(sp);
-console.log(spvv);
-console.log(sv);
-console.log(nv);
-console.log(v);
+var VectorAsProductOfMatrixAndVector = (matrix, vector) => {
+	let v = {};
+	let size = 0;
+	for (let j = 0; j < matrix.size; j++) {
+		let row = matrix[j];
+		let value = 0;
+		for (let i = 0; i < matrix.columnSize; i++) {
+			value += row[i] * (vector[i] || 0);
+		}
+		if (row.size > size) {
+			size = row.size;
+		}
+		v[j] = value;
+	}
+	v.size = size;
+	return v;
+}
 
 module.exports.Vector = Vector;
 module.exports.VectorWithNewElm = VectorWithNewElm;
 module.exports.VectorAsSumOfTwoVectors = VectorAsSumOfTwoVectors;
 module.exports.VectorAsProductOfVectorAndScalar = VectorAsProductOfVectorAndScalar;
 module.exports.ScalarProduct = ScalarProduct;
+module.exports.VectorAsProductOfMatrixAndVector = VectorAsProductOfMatrixAndVector;
 
