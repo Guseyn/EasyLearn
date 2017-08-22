@@ -142,6 +142,18 @@ var MatrixAsMatrixWithoutRowAndColumn = (matrix, j, i) => {
 	return m;
 }
 
+var MatrixTrace = (matrix) => {
+	let trace = 0;
+	for (let j = 0; j < matrix.size; j++) {
+		for (let i = 0; i < matrix.columnSize; i++) {
+			if (j === i) {
+				trace += matrix[j][i];
+			}
+		}
+	}
+	return trace;
+}
+
 module.exports.Matrix = Matrix;
 module.exports.TransposedMatrix = TransposedMatrix;
 module.exports.MatrixAsSumOfTwoMatrix = MatrixAsSumOfTwoMatrix;
@@ -150,4 +162,6 @@ module.exports.MatrixAsHadamardProduct = MatrixAsHadamardProduct;
 module.exports.IdentityMatrix = IdentityMatrix;
 module.exports.MatrixFrobeniusNorm = MatrixFrobeniusNorm;
 module.exports.DeterminantOfMatrix = DeterminantOfMatrix;
+module.exports.MatrixTrace = MatrixTrace;
+
 
