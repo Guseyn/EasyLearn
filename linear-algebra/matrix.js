@@ -77,9 +77,80 @@ var MatrixAsHadamardProduct = (m1, m2) => {
 	return m;
 }
 
+var IdentityMatrix = (size, columnSize) => {
+	let im = {};
+	for (let j = 0; j < size; j++) {
+		im[j] = {};
+		for (let i = 0; i < columnSize; i++) {
+			im[j][i] = i === j ? 1 : 0;
+		}
+	}
+	im.size = size;
+	im.columnSize = columnSize;
+	return im;
+}
+
+var MatrixFrobeniusNorm = (matrix) => {
+	let norm = 0;
+	for (let j = 0; j < matrix.size; j++) {
+		for (let i = 0; i < matrix.columnSize; i++) {
+			norm += Math.pow(matrix[j][i], 2);
+		}
+	}
+	return norm;
+}
+
+var DeterminantOfMatrix = (matrix) => {
+	if (matrix.size === matrix.columnSize) {
+		let det = 0;
+		if (matrix.size === 2) {
+			return matrix[0][0] * matrix[1][1] 
+						- matrix[0][1] * matrix[1][0];
+		} else {
+			for (let i = 0; i < matrix.size; i++) {
+				let M = DeterminantOfMatrix(
+							MatrixAsMatrixWithoutRowAndColumn(
+								matrix, 0, i
+							)
+						);
+				det += Math.pow(-1, i) * matrix[0][i] * M;
+			}
+			return det;
+		}
+	}
+}
+
+/*
+	private
+*/
+var MatrixAsMatrixWithoutRowAndColumn = (matrix, j, i) => {
+	let m = {};
+	for (let mj = 0, jc = 0; mj < matrix.size; mj++) {
+		if (mj !== j) {
+			m[jc] = {};
+			for (let mi = 0, ic = 0; mi < matrix.columnSize; mi++) {
+				if (mi !== i) {
+					m[jc][ic] = matrix[mj][mi] || 0;
+					ic += 1;
+				}
+			}
+			jc += 1;
+		}
+	}
+	m.size = matrix.size - 1;
+	m.columnSize = matrix.columnSize - 1;
+	return m;
+}
+
+var m = Matrix([1,2,3,4], [2,3,4,1], [3,4,1,2], [4,1,2,3]);
+console.log(DeterminantOfMatrix(m));
+
 module.exports.Matrix = Matrix;
 module.exports.TransposedMatrix = TransposedMatrix;
 module.exports.MatrixAsSumOfTwoMatrix = MatrixAsSumOfTwoMatrix;
 module.exports.MatrixAsProductOfMatrixAndScalar = MatrixAsProductOfMatrixAndScalar;
-
+module.exports.MatrixAsHadamardProduct = MatrixAsHadamardProduct;
+module.exports.IdentityMatrix = IdentityMatrix;
+module.exports.MatrixFrobeniusNorm = MatrixFrobeniusNorm;
+module.exports.DeterminantOfMatrix = DeterminantOfMatrix;
 

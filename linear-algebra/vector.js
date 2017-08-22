@@ -66,10 +66,41 @@ var VectorAsProductOfMatrixAndVector = (matrix, vector) => {
 	return v;
 }
 
+var VectorAsDotProduct = (v1, v2) => {
+	let v = {};
+	let size = Math.max(v1.size, v2.size);
+	for (let i = 0; i < size; i++) {
+		v[i] = (v1[i] || 0) * (v2[i] || 0);
+	}
+	v.size = size;
+	return v;
+}
+
+var L1VectorNorm = (vector) => {
+	let norm = 0;
+	for (let i = 0; i < vector.size; i++) {
+		norm += Math.abs(vector[i]);
+	}
+	return norm;
+}
+
+var MaxVectorNorm = (vector) => {
+	let norm = 0;
+	for (let i = 0; i < vector.size; i++) {
+		if (vector[i] > norm) {
+			norm = vector[i];
+		}
+	}
+	return norm;
+}
+
 module.exports.Vector = Vector;
 module.exports.VectorWithNewElm = VectorWithNewElm;
 module.exports.VectorAsSumOfTwoVectors = VectorAsSumOfTwoVectors;
 module.exports.VectorAsProductOfVectorAndScalar = VectorAsProductOfVectorAndScalar;
 module.exports.ScalarProduct = ScalarProduct;
 module.exports.VectorAsProductOfMatrixAndVector = VectorAsProductOfMatrixAndVector;
+module.exports.VectorAsDotProduct = VectorAsDotProduct;
+module.exports.L1VectorNorm = L1VectorNorm;
+module.exports.MaxVectorNorm = MaxVectorNorm;
 
