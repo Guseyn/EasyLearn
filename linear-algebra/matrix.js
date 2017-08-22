@@ -103,20 +103,22 @@ var MatrixFrobeniusNorm = (matrix) => {
 var DeterminantOfMatrix = (matrix) => {
 	if (matrix.size === matrix.columnSize) {
 		let det = 0;
+		if (matrix.size === 1) {
+			return matrix[0][0];
+		}
 		if (matrix.size === 2) {
 			return matrix[0][0] * matrix[1][1] 
 						- matrix[0][1] * matrix[1][0];
-		} else {
-			for (let i = 0; i < matrix.size; i++) {
-				let M = DeterminantOfMatrix(
-							MatrixAsMatrixWithoutRowAndColumn(
-								matrix, 0, i
-							)
-						);
-				det += Math.pow(-1, i) * matrix[0][i] * M;
-			}
-			return det;
 		}
+		for (let i = 0; i < matrix.size; i++) {
+			let M = DeterminantOfMatrix(
+						MatrixAsMatrixWithoutRowAndColumn(
+							matrix, 0, i
+						)
+					);
+			det += Math.pow(-1, i) * matrix[0][i] * M;
+		}
+		return det;
 	}
 }
 
