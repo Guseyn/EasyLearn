@@ -142,9 +142,6 @@ var MatrixAsMatrixWithoutRowAndColumn = (matrix, j, i) => {
 	return m;
 }
 
-var m = Matrix([1,2,3,4], [2,3,4,1], [3,4,1,2], [4,1,2,3]);
-console.log(DeterminantOfMatrix(m));
-
 module.exports.Matrix = Matrix;
 module.exports.TransposedMatrix = TransposedMatrix;
 module.exports.MatrixAsSumOfTwoMatrix = MatrixAsSumOfTwoMatrix;
