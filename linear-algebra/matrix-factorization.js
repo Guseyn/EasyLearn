@@ -11,7 +11,6 @@ var Takagi_MatrixFactorization = (matrix) => {
 
 }
 
-
 var Non_Negative_MatrixFactorization = (matrix) => {
 
 }
