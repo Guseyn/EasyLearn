@@ -79,11 +79,15 @@ var VectorAsDotProduct = (v1, v2) => {
 }
 
 var L1VectorNorm = (vector) => {
+	return LpVectorNorm(vector, 1);
+}
+
+var LpVectorNorm = (vector, p) => {
 	let norm = 0;
 	for (let i = 0; i < vector.size; i++) {
-		norm += Math.abs(vector[i]);
+		norm += Math.pow(Math.abs(vector[i]), p);
 	}
-	return norm;
+	return Math.pow(norm, 1 / p);
 }
 
 var MaxVectorNorm = (vector) => {
@@ -112,7 +116,7 @@ var VectorFromTensor = (tensor, l, j) => {
 	}
 	v.size = tensor[l].columnSize;
 	return v;
-} 
+}
 
 module.exports.Vector = Vector;
 module.exports.VectorWithNewElm = VectorWithNewElm;
