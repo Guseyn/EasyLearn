@@ -1,6 +1,9 @@
 'use strict'
 
 const clone = require('./../lib/clone');
+const tensorModule = require('./tensor');
+
+const Tensor = tensorModule.Tensor;
 
 var Matrix = (...args) => {
 	let m = {};
@@ -156,6 +159,19 @@ var MatrixTrace = (matrix) => {
 	return trace;
 }
 
+var MatrixFromTensor = (tensor, l) => {
+	let m = {};
+	for (let j = 0; j < tensor[l].size; j++) {
+		m[j] = {};
+		for (let i = 0; i < tensor[l].columnSize; i++) {
+			m[j][i] = tensor[l][j][i] || 0;
+		}
+	}
+	m.size = tensor[l].size;
+	m.columnSize = tensor[l].columnSize;
+	return m;
+}
+
 module.exports.Matrix = Matrix;
 module.exports.TransposedMatrix = TransposedMatrix;
 module.exports.MatrixAsSumOfTwoMatrix = MatrixAsSumOfTwoMatrix;
@@ -165,5 +181,5 @@ module.exports.IdentityMatrix = IdentityMatrix;
 module.exports.MatrixFrobeniusNorm = MatrixFrobeniusNorm;
 module.exports.DeterminantOfMatrix = DeterminantOfMatrix;
 module.exports.MatrixTrace = MatrixTrace;
-
+module.exports.MatrixFromTensor = MatrixFromTensor;
 

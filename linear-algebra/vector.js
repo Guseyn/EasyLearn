@@ -1,9 +1,11 @@
 'use strict'
 
 const clone = require('./../lib/clone');
-
 const matrixModule = require('./matrix');
+const tensorModule = require('./tensor');
+
 const Matrix = matrixModule.Matrix;
+const Tensor = tensorModule.Tensor;
 
 var Vector = (...args) => {
 	let v = {};
@@ -94,6 +96,24 @@ var MaxVectorNorm = (vector) => {
 	return norm;
 }
 
+var VectorFromMatrix = (matrix, j) => {
+	let v = {};
+	for (let i = 0; i < matrix.columnSize; i++) {
+		v[i] = matrix[j][i] || 0; 
+	}
+	v.size = matrix.columnSize;
+	return v;
+}
+
+var VectorFromTensor = (tensor, l, j) => {
+	let v = {};
+	for (let i = 0; i < tensor[l].columnSize; i++) {
+		v[i] = tensor[l][j][i] || 0; 
+	}
+	v.size = tensor[l].columnSize;
+	return v;
+} 
+
 module.exports.Vector = Vector;
 module.exports.VectorWithNewElm = VectorWithNewElm;
 module.exports.VectorAsSumOfTwoVectors = VectorAsSumOfTwoVectors;
@@ -103,4 +123,6 @@ module.exports.VectorAsProductOfMatrixAndVector = VectorAsProductOfMatrixAndVect
 module.exports.VectorAsDotProduct = VectorAsDotProduct;
 module.exports.L1VectorNorm = L1VectorNorm;
 module.exports.MaxVectorNorm = MaxVectorNorm;
+module.exports.VectorFromMatrix = VectorFromMatrix;
+module.exports.VectorFromTensor = VectorFromTensor;
 

@@ -1,13 +1,13 @@
 'use strict'
 
 const clone = require('./../lib/clone');
+const util = require('util');
 
 var Tensor = (...args) => {
 	let t = {};
-	let batchSize = 0;
-	let columnSize = 0;
 	for (let l in args) {
 		t[l] = {};
+		let columnSize = 0;
 		for (let j in args[l]) {
 			t[l][j] = {};
 			for (let i in args[l][j]) {
@@ -17,13 +17,11 @@ var Tensor = (...args) => {
 				columnSize = args[l][j].length;
 			}
 		}
-		if (args[l].length > batchSize) {
-			batchSize = args[l].length;
-		}
+		t[l].columnSize = columnSize;
+		t[l].size = args[l].length
 	}
 	t.size = args.length;
-	t.batchSize = batchSize;
-	t.columnSize = columnSize;
+	return t;
 }
 
 module.exports.Tensor = Tensor;
