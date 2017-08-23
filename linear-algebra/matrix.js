@@ -123,6 +123,7 @@ var DeterminantOfMatrix = (matrix) => {
 		}
 		return det;
 	}
+	throw new Error('det can be calculated only for square matrices');
 }
 
 /*
