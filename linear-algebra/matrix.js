@@ -193,6 +193,30 @@ var MatrixFromTensor = (tensor, l) => {
 	return m;
 }
 
+var MatrixAsMatrixWithSwitchedRows = (matrix, rowNum1, rowNum2) => {
+
+}
+
+var MatrixAsMatrixWithSwitchedColumns = (matrix, columnNum1, columnNum2) => {
+
+}
+
+var MatrixAsMatrixWithRowMultipliedWithScalar = (matrix, rowNum, scalar) => {
+
+}
+
+var MatrixAsMatrixWithColumnMultipliedWithScalar = (matrix, columnNum, scalar) => {
+
+}
+
+var MatrixAsMatrixWithRowAddedToAnotherRow = (matrix, rowNum1, rowNum2) => {
+
+}
+
+var MatrixAsMatrixWithColumnAddedToAnotherColumn = (matrix, columnNum1, columnNum2) => {
+
+}
+
 module.exports.Matrix = Matrix;
 module.exports.TransposedMatrix = TransposedMatrix;
 module.exports.MatrixAsSumOfTwoMatrices = MatrixAsSumOfTwoMatrices;

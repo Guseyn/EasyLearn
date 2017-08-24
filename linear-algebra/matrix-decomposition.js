@@ -4,7 +4,12 @@
 const clone = require('./../lib/clone');
 
 var LU_MatrixDecomposition = (matrix) => {
-
+	if (matrix.size !== matrix.columnSize) {
+		throw new Error('LU decomposition is applicable for square matrices only');
+	}
+	let L = {};
+	let U = {};
+	
 }
 
 var BlockLU_MatrixDecomposition = (matrix) => {
