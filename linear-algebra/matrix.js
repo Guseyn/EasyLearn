@@ -35,7 +35,7 @@ var TransposedMatrix = (matrix) => {
 	return m;
 }
 
-var MatrixAsSumOfTwoMatrix = (m1, m2) => {
+var MatrixAsSumOfTwoMatrices = (m1, m2) => {
 	let m = {};
 	let size = Math.max(m1.size, m2.size);
 	let columnSize = Math.max(m1.columnSize, m2.columnSize);
@@ -61,6 +61,26 @@ var MatrixAsProductOfMatrixAndScalar = (matrix, scalar) => {
 	}
 	m.size = matrix.size;
 	m.columnSize = matrix.columnSize;
+	return m;
+}
+
+var MatrixAsProductOfTwoMatrices = (m1, m2) => {
+	let m = {};
+	if (m1.columnSize !== m2.size) {
+		throw new Error('number of the columns of the first matrix must be equal to the number of the rows of the second matrix');
+	}
+	for (let j = 0; j < m1.size; j++) {
+		m[j] = {};
+		for (let i = 0; i < m2.columnSize; i++) {
+			m[j][i] = 0;
+			for (let k = 0; k < m1.columnSize; k++) {
+				m[j][i] += (m1[j] ? (m1[j][k] || 0) : 0)
+							 * (m2[k] ? (m2[k][i] || 0) : 0);
+			}
+		}
+	}
+	m.size = m2.columnSize;
+	m.columnSize = m1.size;
 	return m;
 }
 
@@ -175,8 +195,9 @@ var MatrixFromTensor = (tensor, l) => {
 
 module.exports.Matrix = Matrix;
 module.exports.TransposedMatrix = TransposedMatrix;
-module.exports.MatrixAsSumOfTwoMatrix = MatrixAsSumOfTwoMatrix;
+module.exports.MatrixAsSumOfTwoMatrices = MatrixAsSumOfTwoMatrices;
 module.exports.MatrixAsProductOfMatrixAndScalar = MatrixAsProductOfMatrixAndScalar;
+module.exports.MatrixAsProductOfTwoMatrices = MatrixAsProductOfTwoMatrices;
 module.exports.MatrixAsHadamardProduct = MatrixAsHadamardProduct;
 module.exports.IdentityMatrix = IdentityMatrix;
 module.exports.MatrixFrobeniusNorm = MatrixFrobeniusNorm;
