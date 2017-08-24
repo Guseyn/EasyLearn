@@ -35,15 +35,15 @@ var TransposedMatrix = (matrix) => {
 	return m;
 }
 
-var MatrixAsSumOfTwoMatrices = (m1, m2) => {
+var MatrixAsSumOfTwoMatrices = (matrix1, matrix2) => {
 	let m = {};
-	let size = Math.max(m1.size, m2.size);
-	let columnSize = Math.max(m1.columnSize, m2.columnSize);
+	let size = Math.max(matrix1.size, matrix2.size);
+	let columnSize = Math.max(matrix1.columnSize, matrix2.columnSize);
 	for (let j = 0; j < size; j++) {
 		m[j] = {};
 		for (let i = 0; i < columnSize; i++) {
-			m[j][i] = (m1[j] ? (m1[j][i] || 0) : 0) 
-						+ (m2[j] ? (m2[j][i] || 0) : 0);
+			m[j][i] = (matrix1[j] ? (matrix1[j][i] || 0) : 0) 
+						+ (matrix2[j] ? (matrix2[j][i] || 0) : 0);
 		}
 	}
 	m.size = size;
@@ -64,35 +64,35 @@ var MatrixAsProductOfMatrixAndScalar = (matrix, scalar) => {
 	return m;
 }
 
-var MatrixAsProductOfTwoMatrices = (m1, m2) => {
+var MatrixAsProductOfTwoMatrices = (matrix1, matrix2) => {
 	let m = {};
-	if (m1.columnSize !== m2.size) {
+	if (matrix1.columnSize !== matrix2.size) {
 		throw new Error('number of the columns of the first matrix must be equal to the number of the rows of the second matrix');
 	}
-	for (let j = 0; j < m1.size; j++) {
+	for (let j = 0; j < matrix1.size; j++) {
 		m[j] = {};
-		for (let i = 0; i < m2.columnSize; i++) {
+		for (let i = 0; i < matrix2.columnSize; i++) {
 			m[j][i] = 0;
-			for (let k = 0; k < m1.columnSize; k++) {
-				m[j][i] += (m1[j] ? (m1[j][k] || 0) : 0)
-							 * (m2[k] ? (m2[k][i] || 0) : 0);
+			for (let k = 0; k < matrix1.columnSize; k++) {
+				m[j][i] += (matrix1[j] ? (matrix1[j][k] || 0) : 0)
+							 * (matrix2[k] ? (matrix2[k][i] || 0) : 0);
 			}
 		}
 	}
-	m.size = m2.columnSize;
-	m.columnSize = m1.size;
+	m.size = matrix2.columnSize;
+	m.columnSize = matrix1.size;
 	return m;
 }
 
-var MatrixAsHadamardProduct = (m1, m2) => {
+var MatrixAsHadamardProduct = (matrix1, matrix2) => {
 	let m = {};
-	let size = Math.max(m1.size, m2.size);
-	let columnSize = Math.max(m1.columnSize, m2.columnSize);
+	let size = Math.max(matrix1.size, matrix2.size);
+	let columnSize = Math.max(matrix1.columnSize, matrix2.columnSize);
 	for (let j = 0; j < size; j++) {
 		m[j] = {};
 		for (let i = 0; i < columnSize; i++) {
-			m[j][i] = (m1[j] ? (m1[j][i] || 0) : 0) 
-						* (m2[j] ? (m2[j][i] || 0) : 0);
+			m[j][i] = (matrix1[j] ? (matrix1[j][i] || 0) : 0) 
+						* (matrix2[j] ? (matrix2[j][i] || 0) : 0);
 		}
 	}
 	m.size = size;

@@ -23,11 +23,11 @@ var VectorWithNewElm = (vector, elm) => {
 	return v;
 }
 
-var VectorAsSumOfTwoVectors = (v1, v2) => {
+var VectorAsSumOfTwoVectors = (vector1, vector2) => {
 	let v = {};
-	let size = Math.max(v1.size, v2.size);
+	let size = Math.max(vector1.size, vector2.size);
 	for (let i = 0; i < size; i++) {
-		v[i] = (v1[i] || 0) + (v2[i] || 0);
+		v[i] = (vector1[i] || 0) + (vector2[i] || 0);
 	}
 	v.size = size;
 	return v;
@@ -41,11 +41,11 @@ var VectorAsProductOfVectorAndScalar = (vector, scalar) => {
 	return v;
 }
 
-var ScalarProduct = (v1, v2) => {
+var ScalarProduct = (vector1, vector2) => {
 	let res = 0;
-	let size = Math.max(v1.size, v2.size);
+	let size = Math.max(vector1.size, vector2.size);
 	for (let i = 0; i < size; i++) {
-		res += (v1[i] || 0) * (v2[i] || 0);
+		res += (vector1[i] || 0) * (vector2[i] || 0);
 	}
 	return res;
 }
@@ -68,11 +68,11 @@ var VectorAsProductOfMatrixAndVector = (matrix, vector) => {
 	return v;
 }
 
-var VectorAsDotProduct = (v1, v2) => {
+var VectorAsDotProduct = (vector1, vector2) => {
 	let v = {};
-	let size = Math.max(v1.size, v2.size);
+	let size = Math.max(vector1.size, vector2.size);
 	for (let i = 0; i < size; i++) {
-		v[i] = (v1[i] || 0) * (v2[i] || 0);
+		v[i] = (vector1[i] || 0) * (vector2[i] || 0);
 	}
 	v.size = size;
 	return v;
