@@ -231,7 +231,7 @@ var MatrixAsMatrixWithSwitchedColumns = (matrix, columnNum1, columnNum2) => {
 	return m;
 }
 
-var MatrixAsMatrixWithSwitchedRowsAndColums = (matrix, rowNum1, rowNum2, columnNum1, columnNum2) => {
+var MatrixAsMatrixWithSwitchedRowsAndColumns = (matrix, rowNum1, rowNum2, columnNum1, columnNum2) => {
 	let m = {};
 	for (let j = 0; j < matrix.size; j++) {
 		m[j] = {};
@@ -350,7 +350,7 @@ var MatrixAsMatrixWithoutZeroAtCertainPositionBySmartSwitch = (matrix, j, i, jSt
 		iStart = iStart || i;
 		try {
 			let position = PositionOfFirstNonZeroElementInMatrix(matrix, jStart, iStart);
-			return MatrixAsMatrixWithSwitchedRowsAndColums(matrix, j, position.rowNum, i, position.columnNum);
+			return MatrixAsMatrixWithSwitchedRowsAndColumns(matrix, j, position.rowNum, i, position.columnNum);
 		} catch (e) {
 			throw new Error(`could not get rid of zero in matrix at position: {${j}, ${i}}`);
 		}
@@ -359,6 +359,9 @@ var MatrixAsMatrixWithoutZeroAtCertainPositionBySmartSwitch = (matrix, j, i, jSt
 	}
 }
 
+/*
+	private
+*/
 var PositionOfFirstNonZeroElementInMatrix = (matrix, jStart, iStart) => {
 	jStart = jStart || 0;
 	iStart = iStart || 0;
@@ -386,4 +389,12 @@ module.exports.MatrixFrobeniusNorm = MatrixFrobeniusNorm;
 module.exports.DeterminantOfMatrix = DeterminantOfMatrix;
 module.exports.MatrixTrace = MatrixTrace;
 module.exports.MatrixFromTensor = MatrixFromTensor;
+module.exports.MatrixAsMatrixWithSwitchedRows = MatrixAsMatrixWithSwitchedRows;
+module.exports.MatrixAsMatrixWithSwitchedColumns = MatrixAsMatrixWithSwitchedColumns;
+module.exports.MatrixAsMatrixWithSwitchedRowsAndColumns = MatrixAsMatrixWithSwitchedRowsAndColumns;
+module.exports.MatrixAsMatrixWithRowMultipliedWithScalar = MatrixAsMatrixWithRowMultipliedWithScalar;
+module.exports.MatrixAsMatrixWithColumnMultipliedWithScalar = MatrixAsMatrixWithColumnMultipliedWithScalar;
+module.exports.MatrixAsMatrixWithRowAddedToAnotherRow = MatrixAsMatrixWithRowAddedToAnotherRow;
+module.exports.MatrixAsMatrixWithColumnAddedToAnotherColumn = MatrixAsMatrixWithColumnAddedToAnotherColumn;
+module.exports.MatrixAsMatrixWithoutZeroAtCertainPositionBySmartSwitch = MatrixAsMatrixWithoutZeroAtCertainPositionBySmartSwitch;
 
