@@ -194,28 +194,207 @@ var MatrixFromTensor = (tensor, l) => {
 }
 
 var MatrixAsMatrixWithSwitchedRows = (matrix, rowNum1, rowNum2) => {
-
+	let m = {};
+	for (let j = 0; j < matrix.size; j++) {
+		m[j] = {};
+		for (let i = 0; i < matrix.columnSize; i++) {
+			if (j === rowNum1) {
+				m[j][i] = matrix[j] ? (matrix[rowNum2][i] || 0) : 0;
+			} else if (j === rowNum2) {
+				m[j][i] = matrix[j] ? (matrix[rowNum1][i] || 0) : 0;
+			} else {
+				m[j][i] = matrix[j] ? (matrix[j][i] || 0) : 0;
+			}
+		}
+	}
+	m.size = matrix.size;
+	m.columnSize = matrix.columnSize;
+	return m;
 }
 
 var MatrixAsMatrixWithSwitchedColumns = (matrix, columnNum1, columnNum2) => {
+	let m = {};
+	for (let j = 0; j < matrix.size; j++) {
+		m[j] = {};
+		for (let i = 0; i < matrix.columnSize; i++) {
+			if (i === columnNum1) {
+				m[j][i] = matrix[j] ? (matrix[j][columnNum2] || 0) : 0;
+			} else if (i === columnNum2) {
+				m[j][i] = matrix[j] ? (matrix[j][columnNum1] || 0) : 0;
+			} else {
+				m[j][i] = matrix[j] ? (matrix[j][i] || 0) : 0;
+			}
+		}
+	}
+	m.size = matrix.size;
+	m.columnSize = matrix.columnSize;
+	return m;
+}
 
+var MatrixAsMatrixWithSwitchedRowsAndColums = (matrix, rowNum1, rowNum2, columnNum1, columnNum2) => {
+	let m = {};
+	for (let j = 0; j < matrix.size; j++) {
+		m[j] = {};
+		for (let i = 0; i < matrix.columnSize; i++) {
+			if (j === rowNum1) {
+				if (i === columnNum1) {
+					m[j][i] = matrix[j] ? (matrix[rowNum2][columnNum2] || 0) : 0;
+				} else if (i === columnNum2) {
+					m[j][i] = matrix[j] ? (matrix[rowNum2][columnNum1] || 0) : 0;
+				} else {
+					m[j][i] = matrix[j] ? (matrix[rowNum2][i] || 0) : 0;
+				}
+			} else if (j === rowNum2) {
+				if (i === columnNum1) {
+					m[j][i] = matrix[j] ? (matrix[rowNum1][columnNum2] || 0) : 0;
+				} else if (i === columnNum2) {
+					m[j][i] = matrix[j] ? (matrix[rowNum1][columnNum1] || 0) : 0;
+				} else {
+					m[j][i] = matrix[j] ? (matrix[rowNum1][i] || 0) : 0;	
+				}
+			} else {
+				if (i === columnNum1) {
+					m[j][i] = matrix[j] ? (matrix[j][columnNum2] || 0) : 0;
+				} else if (i === columnNum2) {
+					m[j][i] = matrix[j] ? (matrix[j][columnNum1] || 0) : 0;
+				} else {
+					m[j][i] = matrix[j] ? (matrix[j][i] || 0) : 0;
+				}
+			}
+		}
+	}
+	m.size = matrix.size;
+	m.columnSize = matrix.columnSize;
+	return m;
 }
 
 var MatrixAsMatrixWithRowMultipliedWithScalar = (matrix, rowNum, scalar) => {
-
+	let m = {};
+	for (let j = 0; j < matrix.size; j++) {
+		m[j] = {};
+		for (let i = 0; i < matrix.columnSize; i++) {
+			if (j === rowNum) {
+				m[j][i] = matrix[j] ? (matrix[j][i] * scalar || 0) : 0;
+			} else {
+				m[j][i] = matrix[j] ? (matrix[j][i] || 0) : 0;
+			}
+		}
+	}
+	m.size = matrix.size;
+	m.columnSize = matrix.columnSize;
+	return m;
 }
 
 var MatrixAsMatrixWithColumnMultipliedWithScalar = (matrix, columnNum, scalar) => {
-
+	let m = {};
+	for (let j = 0; j < matrix.size; j++) {
+		m[j] = {};
+		for (let i = 0; i < matrix.columnSize; i++) {
+			if (i === columnNum) {
+				m[j][i] = matrix[j] ? (matrix[j][i] * scalar || 0) : 0;
+			} else {
+				m[j][i] = matrix[j] ? (matrix[j][i] || 0) : 0;
+			}
+		}
+	}
+	m.size = matrix.size;
+	m.columnSize = matrix.columnSize;
+	return m;
 }
 
 var MatrixAsMatrixWithRowAddedToAnotherRow = (matrix, rowNum1, rowNum2) => {
-
+	let m = {};
+	for (let j = 0; j < matrix.size; j++) {
+		m[j] = {};
+		for (let i = 0; i < matrix.columnSize; i++) {
+			if (j === rowNum1) {
+				m[j][i] = matrix[j] ? ((matrix[rowNum1][i] || 0) + (matrix[rowNum2][i] || 0)) : 0;
+			} else {
+				m[j][i] = matrix[j] ? (matrix[j][i] || 0) : 0;
+			}
+		}
+	}
+	m.size = matrix.size;
+	m.columnSize = matrix.columnSize;
+	return m;
 }
 
 var MatrixAsMatrixWithColumnAddedToAnotherColumn = (matrix, columnNum1, columnNum2) => {
-
+	let m = {};
+	for (let j = 0; j < matrix.size; j++) {
+		m[j] = {};
+		for (let i = 0; i < matrix.columnSize; i++) {
+			if (i === columnNum1) {
+				m[j][i] = matrix[j] ? ((matrix[j][columnNum1] || 0) + (matrix[j][columnNum2] || 0)) : 0;
+			} else {
+				m[j][i] = matrix[j] ? (matrix[j][i] || 0) : 0;
+			}
+		}
+	}
+	m.size = matrix.size;
+	m.columnSize = matrix.columnSize;
+	return m;
 }
+
+/*
+	invoke without rowCount and columnCount
+	with hard mode as true it has more chances to get rid of zero at the position, but it requires more resources
+	not recommended for using in common case: it's not effective, but simple
+	better look at MatrixAsMatrixWithoutZeroAtCertainPositionBySmartSwitch
+*/
+var MatrixAsMatrixWithoutZeroAtCertainPositionBySillySwitchingRowsAndColumns = (matrix, j, i, hardMode, rowCount, columnCount) => {
+	if (matrix[j][i] === 0) {
+		hardMode = hardMode || false;
+		rowCount = rowCount || 0;
+		columnCount = columnCount || 0;
+		if (j === rowCount) {
+			rowCount += 1;
+		} else if (i === columnCount) {
+			columnCount += 1;
+		}
+		if (rowCount < matrix.size) {
+			return MatrixAsMatrixWithoutZeroAtCertainPositionBySillySwitchingRowsAndColumns(
+				hardMode
+					? (matrix[rowCount][i] === 0
+						? matrix
+						: MatrixAsMatrixWithSwitchedRows(
+							matrix, j, rowCount
+						))
+					: MatrixAsMatrixWithSwitchedRows(
+						matrix, j, rowCount
+					),
+				j, i, hardMode, rowCount + 1, columnCount
+			);
+		} else if (columnCount < matrix.columnSize) {
+			return MatrixAsMatrixWithoutZeroAtCertainPositionBySillySwitchingRowsAndColumns(
+				hardMode ? 
+					(matrix[j][columnCount] === 0 
+						? matrix
+						: MatrixAsMatrixWithSwitchedColumns(
+							matrix, i, columnCount
+						)
+					)
+					: MatrixAsMatrixWithSwitchedColumns(
+						matrix, i, columnCount
+					),
+				j, i, hardMode, rowCount, columnCount + 1
+			);
+		} else {
+			throw new Error(`could not get rid of zero in matrix at position: {${j}, ${i}}`);
+		}
+	} else {
+		return matrix;
+	}
+}
+
+var PositionOfFirstNonZeroElementInMatrix = () => {
+	let pos = {
+		j: 0,
+		i: 0
+	};
+}
+
+var matrix = Matrix([1,2,3,4],[5,6,7,8],[9,10,11,12]);
 
 module.exports.Matrix = Matrix;
 module.exports.TransposedMatrix = TransposedMatrix;
