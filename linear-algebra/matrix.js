@@ -337,49 +337,21 @@ var MatrixAsMatrixWithColumnAddedToAnotherColumn = (matrix, columnNum1, columnNu
 }
 
 /*
-	invoke without rowCount and columnCount
-	with hard mode as true it has more chances to get rid of zero at the position, but it requires more resources
-	not recommended for using in common case: it's not effective, but simple
-	better look at MatrixAsMatrixWithoutZeroAtCertainPositionBySmartSwitch
+	effective method for getting rid of zero at the certain position using for matrices' decomposition
+	j - number of the row of the zero element
+	i - number of the column of the zero element
+	jStart - number of the row which method starts search for the first non-zero element from
+	iStart - number of the column which method starts search for the first non-zero element from
+	for common case just don't use jStart and iStart, they will be use as jStart = j, iStart = i by default
 */
-var MatrixAsMatrixWithoutZeroAtCertainPositionBySillySwitchingRowsAndColumns = (matrix, j, i, hardMode, rowCount, columnCount) => {
+var MatrixAsMatrixWithoutZeroAtCertainPositionBySmartSwitch = (matrix, j, i, jStart, iStart) => {
 	if (matrix[j][i] === 0) {
-		hardMode = hardMode || false;
-		rowCount = rowCount || 0;
-		columnCount = columnCount || 0;
-		if (j === rowCount) {
-			rowCount += 1;
-		} else if (i === columnCount) {
-			columnCount += 1;
-		}
-		if (rowCount < matrix.size) {
-			return MatrixAsMatrixWithoutZeroAtCertainPositionBySillySwitchingRowsAndColumns(
-				hardMode
-					? (matrix[rowCount][i] === 0
-						? matrix
-						: MatrixAsMatrixWithSwitchedRows(
-							matrix, j, rowCount
-						))
-					: MatrixAsMatrixWithSwitchedRows(
-						matrix, j, rowCount
-					),
-				j, i, hardMode, rowCount + 1, columnCount
-			);
-		} else if (columnCount < matrix.columnSize) {
-			return MatrixAsMatrixWithoutZeroAtCertainPositionBySillySwitchingRowsAndColumns(
-				hardMode ? 
-					(matrix[j][columnCount] === 0 
-						? matrix
-						: MatrixAsMatrixWithSwitchedColumns(
-							matrix, i, columnCount
-						)
-					)
-					: MatrixAsMatrixWithSwitchedColumns(
-						matrix, i, columnCount
-					),
-				j, i, hardMode, rowCount, columnCount + 1
-			);
-		} else {
+		jStart = jStart || j;
+		iStart = iStart || i;
+		try {
+			let position = PositionOfFirstNonZeroElementInMatrix(matrix, jStart, iStart);
+			return MatrixAsMatrixWithSwitchedRowsAndColums(matrix, j, position.rowNum, i, position.columnNum);
+		} catch (e) {
 			throw new Error(`could not get rid of zero in matrix at position: {${j}, ${i}}`);
 		}
 	} else {
@@ -387,14 +359,21 @@ var MatrixAsMatrixWithoutZeroAtCertainPositionBySillySwitchingRowsAndColumns = (
 	}
 }
 
-var PositionOfFirstNonZeroElementInMatrix = () => {
-	let pos = {
-		j: 0,
-		i: 0
-	};
+var PositionOfFirstNonZeroElementInMatrix = (matrix, jStart, iStart) => {
+	jStart = jStart || 0;
+	iStart = iStart || 0;
+	for (let j = jStart; j < matrix.size; j++) {
+		for (let i = iStart; i < matrix.columnSize; i++) {
+			if (matrix[j][i] !== 0) {
+				return {
+					rowNum: j,
+					columnNum: i
+				}
+			}
+		}
+	}
+	throw new Error('could not find position of first non-zero element in the matrix');
 }
-
-var matrix = Matrix([1,2,3,4],[5,6,7,8],[9,10,11,12]);
 
 module.exports.Matrix = Matrix;
 module.exports.TransposedMatrix = TransposedMatrix;
