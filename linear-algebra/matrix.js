@@ -344,7 +344,7 @@ var MatrixAsMatrixWithColumnAddedToAnotherColumn = (matrix, columnNum1, columnNu
 	iStart - number of the column which method starts search for the first non-zero element from
 	for common case just don't use jStart and iStart, they will be use as jStart = j, iStart = i by default
 */
-var MatrixAsMatrixWithoutZeroAtCertainPositionBySmartSwitch = (matrix, j, i, jStart, iStart) => {
+var MatrixAsMatrixWithoutZeroAtCertainPosition = (matrix, j, i, jStart, iStart) => {
 	if (matrix[j][i] === 0) {
 		jStart = jStart || j;
 		iStart = iStart || i;
@@ -396,5 +396,5 @@ module.exports.MatrixAsMatrixWithRowMultipliedWithScalar = MatrixAsMatrixWithRow
 module.exports.MatrixAsMatrixWithColumnMultipliedWithScalar = MatrixAsMatrixWithColumnMultipliedWithScalar;
 module.exports.MatrixAsMatrixWithRowAddedToAnotherRow = MatrixAsMatrixWithRowAddedToAnotherRow;
 module.exports.MatrixAsMatrixWithColumnAddedToAnotherColumn = MatrixAsMatrixWithColumnAddedToAnotherColumn;
-module.exports.MatrixAsMatrixWithoutZeroAtCertainPositionBySmartSwitch = MatrixAsMatrixWithoutZeroAtCertainPositionBySmartSwitch;
+module.exports.MatrixAsMatrixWithoutZeroAtCertainPosition = MatrixAsMatrixWithoutZeroAtCertainPosition;
 
