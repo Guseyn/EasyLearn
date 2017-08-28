@@ -1,8 +1,6 @@
 
 'use strict'
 
-const clone = require('./../lib/clone');
-
 var Rank_MatrixFactorization = (matrix) => {
 
 }
